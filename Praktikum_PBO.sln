@@ -1,25 +1,214 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35222.181
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Praktikum_PBO", "Praktikum_PBO\Praktikum_PBO.csproj", "{4543CDC9-4D1F-45FC-9423-EBAD0A5491AA}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4543CDC9-4D1F-45FC-9423-EBAD0A5491AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4543CDC9-4D1F-45FC-9423-EBAD0A5491AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4543CDC9-4D1F-45FC-9423-EBAD0A5491AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4543CDC9-4D1F-45FC-9423-EBAD0A5491AA}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {3824940A-2D22-4478-96F1-95B8D012CEF8}
-	EndGlobalSection
-EndGlobal
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using System ;
+using System.Collections.Generic;
+
+public class Hewan
+{
+    public string Nama { get; set; }
+    public int Umur { get; set; }
+
+
+    public Hewan(string nama, int umur)
+    {
+        Nama = nama;
+        Umur = umur;
+    }
+    public virtual string Suara()
+    { return "Hewan ini bersuara";}
+
+    public string InfoHewan()
+    { return $"Nama : {Nama}, Umur: {Umur} tahun"; }
+    
+    public virtual void info()
+{
+        Console.WriteLine($"{InfoHewan()},Suara: {Suara()}");
+}
+
+}
+
+// Membuat class Mamalia
+public class Mamalia : Hewan
+{
+    public int JumlahKaki {get; set;} 
+    
+    public Mamalia(string nama, int umur, int jumlahKaki) : base(nama,umur)
+    {
+        JumlahKaki = jumlahKaki;
+    }
+
+    public override string Suara()
+    { 
+        return "Mamalia bersuara"; 
+    }
+    
+    public override void info()
+    {
+        Console.WriteLine($"{InfoHewan()},Jumlah Kaki: {JumlahKaki},Suara: {Suara()}");
+    }
+}
+
+// Membuat class Reptil
+public class Reptil : Hewan 
+{
+    public double PanjangTubuh {get; set;}
+    
+    public Reptil(string nama, int umur, double panjangTubuh) : base (nama, umur)
+    {
+        PanjangTubuh = panjangTubuh;
+    }
+
+    public override string Suara()
+
+    {
+        return "Reptil bersuara";
+    }
+
+    public override void info()
+    {
+        Console.WriteLine($"{InfoHewan()}, Panjang Tubuh: {PanjangTubuh} meter, Suara: {Suara()}");
+    }
+}
+
+// Membuat class Singa
+public class Singa : Mamalia
+{
+    public Singa(string nama, int umur) : base(nama,umur,4) {}
+
+    public override string Suara()
+    {
+        return "raawrrr";
+    }
+    public void Mengaum()
+    {
+        Console.WriteLine($"{Nama} mengaum sangat keras!"); 
+    }
+    public override void info ()
+    {
+        Console.WriteLine($"{InfoHewan()}, Jumlah Kaki: {JumlahKaki},Suara: {Suara()}");
+    }
+}
+
+// Membuat class Gajah
+public class Gajah : Mamalia
+{
+    public Gajah(string nama, int umur) : base(nama,umur,4) {}
+
+    public override string Suara()
+    {
+        return "pawoo";
+    }
+    public override void info ()
+    {
+        Console.WriteLine($"{InfoHewan()}, Jumlah Kaki: {JumlahKaki}, Suara: {Suara()}");
+
+    }
+}
+
+//  Membuat class Ular Mewarisi Reptil
+public class Ular : Reptil
+{
+    public Ular(string nama, int umur, double panjangTubuh) : base(nama,umur,panjangTubuh) {}
+
+    public override string Suara()
+    {
+        return "sssssszzz";
+    }
+
+    public void Merayap()
+    
+    {
+      Console.WriteLine($"{Nama} merayap di batang pohon");
+    }
+   
+    public override void info ()
+    {
+        Console.WriteLine($"{InfoHewan()}, Panjang Tubuh: {PanjangTubuh} meter, Suara: {Suara()}");
+    }
+}
+
+//  Membuat class Buaya Mewarisi Reptil
+public class Buaya : Reptil
+{
+    public Buaya(string nama, int umur, double panjangTubuh) : base(nama,umur,panjangTubuh) {}
+
+    public override string Suara()
+    {
+        return "ggrrrr";
+    }
+    public override void info ()
+    {
+        Console.WriteLine($"{InfoHewan()},Panjang Tubuh: {PanjangTubuh} meter, Suara: {Suara()}");
+    }
+}
+
+// Membuat Class Kebun Binatang
+public class KebunBinatang
+{
+    private List<Hewan> daftarHewan;
+    
+    public KebunBinatang()
+    {
+        daftarHewan = new List<Hewan>();
+    }
+
+    public void TambahHewan(Hewan hewan)
+    {
+        daftarHewan.Add(hewan);
+    }
+    
+    public void DaftarHewan()
+    {
+        Console.WriteLine("Daftar Hewan Yang Ada Di Kebun Binatang");
+        foreach (var hewan in daftarHewan)
+    
+        {
+            hewan.info();
+        }
+    }
+}
+
+// Menjalankan program 
+public class Program 
+{
+    public static void Main(string[] args)
+    { 
+    // Membuat objek hewan
+        Singa Singa1 = new Singa("Singa",5);
+        Gajah Gajah1 = new Gajah("Gajah",10);
+        Ular Ular1 = new Ular("Ular", 3, 2.5);
+        Buaya Buaya1 = new Buaya("Buaya",7,3);
+        Reptil reptil = new Buaya("Buaya", 7, 3);
+       
+
+        // Membuat Objek Kebun Binatang
+        KebunBinatang KB1 = new KebunBinatang();
+
+        // Menambahkan hewan ke Kebun Binatang
+        KB1.TambahHewan(Singa1);
+        KB1.TambahHewan(Gajah1);
+        KB1.TambahHewan(Ular1);
+        KB1.TambahHewan(Buaya1);
+
+
+        // Menampilkan koleksi KebunBinatang
+        KB1.DaftarHewan();
+
+        //Memanggil method Mengaum dan Merayap
+        //Singa1.Mengaum();
+        //Ular1.Merayap();
+
+        //Memanggil Suara Gajah dan Ular
+        //Console.WriteLine(Gajah1.Suara());
+        //Console.WriteLine(Ular1.Suara());
+
+        //Memanggil method "Suara()" dari class Buaya dengan variabel dan tipe data baru
+        //Console.WriteLine(reptil.Suara());
+
+        Console.ReadLine();
+    }
+}
